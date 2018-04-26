@@ -17,19 +17,26 @@ Vue.use(VueRouter)
 
 Vue.component('Myheader', require('./components/Myheader.vue'));
 Vue.component('Myfooter', require('./components/Myfooter.vue'));
-Vue.component('Home', require('./components/Home.vue'));
-Vue.component('about', require('./components/about.vue'));
+//Vue.component('Home', require('./components/Home.vue'));
+//Vue.component('about', require('./components/about.vue'));
+// Vue.component('Add', require('./components/Add.vue'));
+// let add=require('./components/Add.vue');
+
+
+
 let Myheader=require('./components/Myheader.vue');
 let Myfooter=require('./components/Myfooter.vue');
 let Home=require('./components/Home.vue');
 let about=require('./components/about.vue');
 
+ 
 const routes=[
-{ path:'/home',component:home},
+{ path:'/Home',component:Home},
 { path:'/about',component:about},
 
 ]
 const router=new VueRouter({
+	mode:'history',
 	routes
 })
 
