@@ -1,5 +1,5 @@
 <template>
-	<div class="modal " :class="openmodal">
+	<div class="modal  " :class="openmodal">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head  " style="">
@@ -7,23 +7,23 @@
         <button class="delete" aria-label="close" @click="close"></button>
       </header>
       <section class="modal-card-body">
-         
-         <div class="field">
+
+       <div class="field">
         <label class="label">Name</label>
         <div class="control">
-          <input class="input" type="text" v-modal="list.name" placeholder="Enter Name">
+          <input class="input" type="text" v-model="list.name" placeholder="Enter Name">
         </div>
       </div>
-       <div class="field">
+      <div class="field">
         <label class="label">Number</label>
         <div class="control">
-          <input class="input" type="Number" v-modal="list.number"  placeholder="Enter Number">
+          <input class="input" type="Number" v-model="list.number"  placeholder="Enter Number">
         </div>
       </div>
       <div class="field">
         <label class="label">E-mail</label>
         <div class="control">
-          <input class="input" type="emit" v-modal="list.email" placeholder="Enter E-mail">
+          <input class="input" type="emit" v-model="list.email" placeholder="Enter E-mail">
         </div>
       </div>
 
@@ -44,7 +44,7 @@
       list:{
         name:'',
         number:'',
-        email :'',
+        email :''
       }
     }
 
@@ -56,6 +56,10 @@
     },
     saveme()
     {
+     //  axios.post('/phonebook',this.$data.list).then((response)=>this.close());
+     // .catch((error)=>console.log(error))
+     axios.post('/phonebook',this.$data.list).then((response)=>this.close()).catch((error)=>console.log(error))
+
 
     }
 

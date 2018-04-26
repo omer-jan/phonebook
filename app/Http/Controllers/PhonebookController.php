@@ -35,7 +35,15 @@ class PhonebookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $ph=new Phonebook;
+         $ph->name=$request->name;
+         $ph->phone=$request->number;
+         $ph->email=$request->email;
+         $ph->save();
+         
+
+
+
     }
 
     /**
