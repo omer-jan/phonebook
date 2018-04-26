@@ -12176,7 +12176,10 @@ var Myfooter = __webpack_require__(12);
 var Home = __webpack_require__(45);
 var about = __webpack_require__(48);
 
-var routes = [{ path: '/Home', component: Home }, { path: '/about', component: about }];
+var routes = [{
+  path: '/Home', component: Home },
+// path:'http://127.0.0.1:8000/phonebook/home',component:Home},
+{ path: '/about', component: about }];
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   mode: 'history',
   routes: routes
@@ -46355,6 +46358,9 @@ var Add = __webpack_require__(61);
   methods: {
     openAdd: function openAdd() {
       this.addActive = "is-active";
+    },
+    closeme: function closeme() {
+      this.addActive = '';
     }
   }
 });
@@ -46391,7 +46397,13 @@ var render = function() {
         _vm._m(2)
       ]),
       _vm._v(" "),
-      _c("Add", { attrs: { openmodal: _vm.addActive } })
+      _c("Add", {
+        attrs: { openmodal: _vm.addActive },
+        on: { closeRequest: _vm.closeme }
+      }),
+      _vm._v(
+        " it is mean when closeRequest is fired so closeme method is should called \r\n"
+      )
     ],
     1
   )
@@ -46626,39 +46638,94 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "modal", class: _vm.openmodal }, [
+  return _c("div", { staticClass: "modal ", class: _vm.openmodal }, [
     _c("div", { staticClass: "modal-background" }),
     _vm._v(" "),
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-card" }, [
-      _c("header", { staticClass: "modal-card-head" }, [
+    _c("div", { staticClass: "modal-card" }, [
+      _c("header", { staticClass: "modal-card-head  " }, [
         _c("p", { staticClass: "modal-card-title" }, [_vm._v("Modal title")]),
         _vm._v(" "),
         _c("button", {
           staticClass: "delete",
-          attrs: { "aria-label": "close" }
+          attrs: { "aria-label": "close" },
+          on: { click: _vm.close }
         })
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "modal-card-body" }),
-      _vm._v(" "),
-      _c("footer", { staticClass: "modal-card-foot" }, [
-        _c("button", { staticClass: "button is-success" }, [
-          _vm._v("Save changes")
+      _c("section", { staticClass: "modal-card-body" }, [
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "modal",
+                  rawName: "v-modal",
+                  value: _vm.list.name,
+                  expression: "list.name"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Enter Name" }
+            })
+          ])
         ]),
         _vm._v(" "),
-        _c("button", { staticClass: "button" }, [_vm._v("Cancel")])
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Number")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "modal",
+                  rawName: "v-modal",
+                  value: _vm.list.number,
+                  expression: "list.number"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "Number", placeholder: "Enter Number" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("E-mail")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "modal",
+                  rawName: "v-modal",
+                  value: _vm.list.email,
+                  expression: "list.email"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "emit", placeholder: "Enter E-mail" }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("footer", { staticClass: "modal-card-foot" }, [
+        _c(
+          "button",
+          { staticClass: "button is-link", on: { click: _vm.saveme } },
+          [_vm._v("Save changes")]
+        ),
+        _vm._v(" "),
+        _c("button", { staticClass: "button", on: { click: _vm.close } }, [
+          _vm._v("Cancel")
+        ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -46692,9 +46759,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['openmodal']
+  props: ['openmodal'],
+  data: function data() {
+    return {
+      list: {
+        name: '',
+        number: '',
+        email: ''
+      }
+    };
+  },
+
+  methods: {
+    close: function close() {
+      //fire event  and name that event closeRequest
+      this.$emit('closeRequest');
+    },
+    saveme: function saveme() {}
+  }
 });
 
 /***/ })

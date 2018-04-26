@@ -31,7 +31,9 @@ let about=require('./components/about.vue');
 
  
 const routes=[
-{ path:'/Home',component:Home},
+{ 
+	 path:'/Home',component:Home},
+	 // path:'http://127.0.0.1:8000/phonebook/home',component:Home},
 { path:'/about',component:about},
 
 ]

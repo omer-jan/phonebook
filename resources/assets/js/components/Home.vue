@@ -35,7 +35,7 @@
     </button>
   </div>
 </nav>
-<Add :openmodal='addActive'></Add>
+<Add :openmodal='addActive' @closeRequest="closeme"></Add> it is mean when closeRequest is fired so closeme method is should called 
 </div> 
  
 </template>
@@ -55,6 +55,9 @@
       methods:{
         openAdd() {
           this.addActive="is-active";
+        },
+        closeme(){
+          this.addActive='';
         }
       }
     }
