@@ -93,6 +93,7 @@ class PhonebookController extends Controller
      */
     public function destroy(phonebook $phonebook)
     {
-        //
+        phonebook::where('id',$phonebook->id)->delete();
+        
     }
 }

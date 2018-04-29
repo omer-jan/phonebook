@@ -46392,6 +46392,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 window.Vue = __webpack_require__(3);
 
@@ -46409,7 +46414,8 @@ var update = __webpack_require__(67);
       showActive: '',
       updateActive: '',
       lists: {}, // for list data
-      errors: {} // to show errors
+      errors: {}, // to show errors
+      loading: false
     };
   },
   mounted: function mounted() {
@@ -46436,10 +46442,45 @@ var update = __webpack_require__(67);
       this.$children[2].list = this.lists[key]; // take the second compnent that is show and initialized its list component with the list that has key
       this.updateActive = "is-active";
     },
+    refereshdata: function refereshdata() {
+      var _this2 = this;
+
+      axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
+      then(function (response) {
+        return _this2.lists = response.data;
+      }) //to show fetched data in lists so we need to reate a list in data parts
+      .catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      }); // show errors we need to create errors in data parts
+    },
+    del: function del(key, id) {
+      var _this3 = this;
+
+      if (confirm("Are you sure?")) {
+        this.loading = !this.loading;
+
+        axios.delete('/phonebook/' + id). // we call getdata  method for that we need to create route web.php
+        then(function (response) {
+          _this3.lists.splice(key, 1);_this3.loading = !_this3.loading;
+        }) //to show fetched data in lists so we need to reate a list in data parts
+        .catch(function (error) {
+          return _this3.errors = error.response.data.errors;
+        });
+      }
+    },
     closeme: function closeme() {
+      var _this4 = this;
+
       this.addActive = '';
       this.showActive = '';
       this.updateActive = '';
+      axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
+      then(function (response) {
+        return _this4.lists = response.data;
+      }) //to show fetched data in lists so we need to reate a list in data parts
+      .catch(function (error) {
+        return _this4.errors = error.response.data.errors;
+      });
     }
   }
 });
@@ -46692,7 +46733,7 @@ var render = function() {
         { staticClass: "panel column is-offset-2 is-8" },
         [
           _c("p", { staticClass: "panel-heading" }, [
-            _vm._v("\r\n    View Js Phone Book\r\n    "),
+            _vm._v("\r\n    \r\n    View Js Phone Book\r\n   "),
             _c("br"),
             _vm._v(" "),
             _c("br"),
@@ -46701,7 +46742,14 @@ var render = function() {
               "button",
               { staticClass: "button is-link ", on: { click: _vm.openAdd } },
               [_vm._v("Add new ")]
-            )
+            ),
+            _vm._v(" "),
+            _vm.loading
+              ? _c("i", {
+                  staticClass: "fa fa-spinner fa-spin fa-fw is-pulled-right ",
+                  staticStyle: { color: "#3273dc", "font-size": "35px" }
+                })
+              : _vm._e()
           ]),
           _vm._v(" "),
           _vm._m(0),
@@ -46728,7 +46776,14 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("i", { staticClass: "fa fa-trash fa-fw has-text-danger" }),
+                  _c("i", {
+                    staticClass: "fa fa-trash fa-fw has-text-danger",
+                    on: {
+                      click: function($event) {
+                        _vm.del(key, item.id)
+                      }
+                    }
+                  }),
                   _vm._v(" "),
                   _c("i", {
                     staticClass: "fa fa-eye fa-fw has-text-primary",
@@ -46746,9 +46801,7 @@ var render = function() {
                 })
               ]
             )
-          }),
-          _vm._v(" "),
-          _vm._m(1)
+          })
         ],
         2
       ),
@@ -46789,16 +46842,6 @@ var staticRenderFns = [
             attrs: { "aria-hidden": "true" }
           })
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-block" }, [
-      _c("button", { staticClass: "button is-link is-outlined is-fullwidth" }, [
-        _vm._v("\r\n      reset all filters\r\n    ")
       ])
     ])
   }
