@@ -1,5 +1,5 @@
 <?php
-sfs fs  dfsd fsf s
+ 
 namespace App\Http\Controllers;
 
 use App\phonebook;
@@ -38,7 +38,7 @@ class PhonebookController extends Controller
     {
          $ph=new Phonebook;
          $ph->name=$request->name;
-         $ph->phone=$request->number;
+         $ph->phone=$request->phone;
          $ph->email=$request->email;
          $ph->save();
     }

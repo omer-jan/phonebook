@@ -1,5 +1,5 @@
 <?php
-xsfsfsfs  sfsd fsfsf s
+ 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,7 +26,8 @@ class PhonebookRequest extends FormRequest
         // you can take these rouls from laravel website  https://laravel.com/docs/5.6/validation#validation-quickstart
         return [
             'name'=>'required|max:255',
-            'phone'=>'required|max:10|numeric',
+           // 'phone'=>'required|max:10|numeric',
+            'phone'=>'required|numeric',
             'email'=>'required|email|unique:phonebooks'// it mean for phonebook table
             //
         ];
