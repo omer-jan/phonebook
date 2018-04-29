@@ -18,3 +18,4 @@ Route::get('/phonebook/{name}',function(){
 	 return redirect('/');
 })->where('name','[A-Za-z]+');
 Route::resource('phonebook','phonebookController');// create all resources 
+Route::post('getdata','phonebookController@getdata');// create all resources 

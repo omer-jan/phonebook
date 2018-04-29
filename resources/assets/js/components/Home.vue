@@ -16,14 +16,15 @@
     </p>
   </div>
   
-  <a class="panel-block is-active" style="color:red;">
-    <span class="column is-9">my name</span>
+  <a class="panel-block is-active" style="color:red;" v-for="item,key in lists">
+    <span class="column is-9">{{item.name}}</span>
            
       <span class="column is-2   panel-icon" >
       
-        <i class="fa fa-edit fa-fw" style="color:blue;"></i>
-        <i class="fa fa-trash fa-fw" style="color:red;"></i>      
-        <i class="fa fa-eye fa-fw" style="color:green;"></i>
+        <i class="fa fa-edit fa-fw has-text-info"    ></i>
+        <i class="fa fa-trash fa-fw has-text-danger" ></i>   
+        <i class="fa fa-eye fa-fw has-text-primary" @click="openShow(key)"></i>   
+       
     </span>      
       <span class="column is-1 panel-icon" style="color:red;">   
     </span>      
@@ -36,6 +37,7 @@
   </div>
 </nav>
 <Add :openmodal='addActive' @closeRequest="closeme"></Add> it is mean when closeRequest is fired so closeme method is should called 
+<show :openmodal='showActive' @closeRequest="closeme"></show> it is mean when closeRequest is fired so closeme method is should called 
 </div> 
  
 </template>
@@ -43,21 +45,36 @@
   window.Vue = require('vue');
   import Vue from 'vue'
   Vue.component('Add', require('./Add.vue'));
-  let Add=require('./Add.vue');
+  Vue.component('show', require('./show.vue'));
+  let Add=require('./Add.vue');  
+  let show=require('./show.vue');
     export default {
-      components:{Add},
+      components:{Add,show},
       data () {
         return {
           addActive:'',
+          showActive:'',
+          lists:{},// for list data
+          errors:{},// to show errors
         }
 
+      },
+      mounted(){
+         axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
+         then((response)=>this.lists=response.data)//to show fetched data in lists so we need to reate a list in data parts
+      .catch((error)=>this.errors=error.response.data.errors)  // show errors we need to create errors in data parts
       },
       methods:{
         openAdd() {
           this.addActive="is-active";
         },
+         openShow(key) {
+          this.$children[1].list=this.lists[key];// take the second compnent that is show and initialized its list component with the list that has key
+          this.showActive="is-active";
+        },
         closeme(){
           this.addActive='';
+          this.showActive='';
         }
       }
     }
