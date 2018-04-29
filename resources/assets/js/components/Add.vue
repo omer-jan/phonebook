@@ -27,7 +27,7 @@
         </div>
       </div>
 
-    </section>
+    </section> 
     <footer class="modal-card-foot">
       <button class="button is-link" @click="saveme">Save changes</button>
       <button class="button" @click="close">Cancel</button>
@@ -56,9 +56,8 @@
     },
     saveme()
     {
-     //  axios.post('/phonebook',this.$data.list).then((response)=>this.close());
-     // .catch((error)=>console.log(error))
-     axios.post('/phonebook',this.$data.list).then((response)=>this.close()).catch((error)=>console.log(error))
+      axios.post('/phonebook',this.$data.list).then((response)=>this.close())
+      .catch((error)=>console.log(error))
 
 
     }
@@ -66,3 +65,7 @@
   }
 }
 </script>
+sfs 
+sdf
+sdf 
+sf 

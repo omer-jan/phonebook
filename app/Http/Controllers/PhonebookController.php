@@ -1,8 +1,9 @@
 <?php
-
+sfs fs  dfsd fsf s
 namespace App\Http\Controllers;
 
 use App\phonebook;
+use App\Http\Requests\PhonebookRequest;
 use Illuminate\Http\Request;
 
 class PhonebookController extends Controller
@@ -33,17 +34,13 @@ class PhonebookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhonebookRequest $request)
     {
          $ph=new Phonebook;
          $ph->name=$request->name;
          $ph->phone=$request->number;
          $ph->email=$request->email;
          $ph->save();
-         
-
-
-
     }
 
     /**
