@@ -21,7 +21,7 @@
            
       <span class="column is-2   panel-icon" >
       
-        <i class="fa fa-edit fa-fw has-text-info"    ></i>
+        <i class="fa fa-edit fa-fw has-text-info"  @click="openEdit(key)"  ></i>
         <i class="fa fa-trash fa-fw has-text-danger" ></i>   
         <i class="fa fa-eye fa-fw has-text-primary" @click="openShow(key)"></i>   
        
@@ -36,8 +36,9 @@
     </button>
   </div>
 </nav>
-<Add :openmodal='addActive' @closeRequest="closeme"></Add> it is mean when closeRequest is fired so closeme method is should called 
-<show :openmodal='showActive' @closeRequest="closeme"></show> it is mean when closeRequest is fired so closeme method is should called 
+<Add :openmodal='addActive' @closeRequest="closeme"></Add> <!-- it is mean when closeRequest is fired so closeme method is should called  -->
+<show :openmodal='showActive' @closeRequest="closeme"></show> <!-- it is mean when closeRequest is fired so closeme method is should called --> 
+<update :openmodal='updateActive' @closeRequest="closeme"></update> <!-- it is mean when closeRequest is fired so closeme method is should called  -->
 </div> 
  
 </template>
@@ -46,14 +47,17 @@
   import Vue from 'vue'
   Vue.component('Add', require('./Add.vue'));
   Vue.component('show', require('./show.vue'));
+  Vue.component('update', require('./update.vue'));
   let Add=require('./Add.vue');  
   let show=require('./show.vue');
+  let update=require('./update.vue');
     export default {
-      components:{Add,show},
+      components:{Add,show,update},
       data () {
         return {
           addActive:'',
           showActive:'',
+          updateActive:'',
           lists:{},// for list data
           errors:{},// to show errors
         }
@@ -72,9 +76,15 @@
           this.$children[1].list=this.lists[key];// take the second compnent that is show and initialized its list component with the list that has key
           this.showActive="is-active";
         },
+        openEdit(key){
+        this.$children[2].list=this.lists[key];// take the second compnent that is show and initialized its list component with the list that has key
+          this.updateActive="is-active";
+
+        },
         closeme(){
           this.addActive='';
           this.showActive='';
+          this.updateActive='';
         }
       }
     }

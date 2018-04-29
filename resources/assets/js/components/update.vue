@@ -1,9 +1,9 @@
 <template>
-	<div class="modal  " :class="openmodal">
+  <div class="modal  " :class="openmodal">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head  " style="">
-        <p class="modal-card-title">Add New Entery</p>
+        <p class="modal-card-title">Update {{list.name}} 's Details</p>  <!-- to show the name of the person whom record is going to be update -->
         <button class="delete" aria-label="close" @click="close"></button>
       </header>
       <section class="modal-card-body">
@@ -32,7 +32,7 @@
 
     </section> 
     <footer class="modal-card-foot">
-      <button class="button is-link" @click="saveme">Save </button>
+      <button class="button is-link" @click="update">Update </button>
       <button class="button" @click="close">Cancel</button>
     </footer>
   </div>
@@ -44,11 +44,7 @@
   data()
   {
     return {
-      list:{
-        name:'',
-        phone:'',
-        email :''
-      },
+      list:{},//make list emphty
       errors:{}
     }
 
@@ -58,9 +54,10 @@
       //fire event  and name that event closeRequest
       this.$emit('closeRequest');
     },
-    saveme()
+    update()
     {
-      axios.post('/phonebook',this.$data.list).then((response)=>this.close())
+      // to store  changes in phonebook after php artisan route:list we know that for store we need to do patch and pass id 
+      axios.patch(`/phonebook/${this.list.id}`,this.$data.list).then((response)=>this.close())
       .catch((error)=>this.errors=error.response.data.errors)
 
     }

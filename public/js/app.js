@@ -46391,19 +46391,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 window.Vue = __webpack_require__(3);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('Add', __webpack_require__(13));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('show', __webpack_require__(64));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('update', __webpack_require__(67));
 var Add = __webpack_require__(13);
 var show = __webpack_require__(64);
+var update = __webpack_require__(67);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { Add: Add, show: show },
+  components: { Add: Add, show: show, update: update },
   data: function data() {
     return {
       addActive: '',
       showActive: '',
+      updateActive: '',
       lists: {}, // for list data
       errors: {} // to show errors
     };
@@ -46428,9 +46432,14 @@ var show = __webpack_require__(64);
       this.$children[1].list = this.lists[key]; // take the second compnent that is show and initialized its list component with the list that has key
       this.showActive = "is-active";
     },
+    openEdit: function openEdit(key) {
+      this.$children[2].list = this.lists[key]; // take the second compnent that is show and initialized its list component with the list that has key
+      this.updateActive = "is-active";
+    },
     closeme: function closeme() {
       this.addActive = '';
       this.showActive = '';
+      this.updateActive = '';
     }
   }
 });
@@ -46525,7 +46534,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "modal-card" }, [
       _c("header", { staticClass: "modal-card-head  " }, [
-        _c("p", { staticClass: "modal-card-title" }, [_vm._v("Modal title")]),
+        _c("p", { staticClass: "modal-card-title" }, [
+          _vm._v("Add New Entery")
+        ]),
         _vm._v(" "),
         _c("button", {
           staticClass: "delete",
@@ -46645,7 +46656,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "button is-link", on: { click: _vm.saveme } },
-          [_vm._v("Save changes")]
+          [_vm._v("Save ")]
         ),
         _vm._v(" "),
         _c("button", { staticClass: "button", on: { click: _vm.close } }, [
@@ -46708,7 +46719,14 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "column is-2   panel-icon" }, [
-                  _c("i", { staticClass: "fa fa-edit fa-fw has-text-info" }),
+                  _c("i", {
+                    staticClass: "fa fa-edit fa-fw has-text-info",
+                    on: {
+                      click: function($event) {
+                        _vm.openEdit(key)
+                      }
+                    }
+                  }),
                   _vm._v(" "),
                   _c("i", { staticClass: "fa fa-trash fa-fw has-text-danger" }),
                   _vm._v(" "),
@@ -46739,16 +46757,16 @@ var render = function() {
         attrs: { openmodal: _vm.addActive },
         on: { closeRequest: _vm.closeme }
       }),
-      _vm._v(
-        " it is mean when closeRequest is fired so closeme method is should called \r\n"
-      ),
+      _vm._v(" "),
       _c("show", {
         attrs: { openmodal: _vm.showActive },
         on: { closeRequest: _vm.closeme }
       }),
-      _vm._v(
-        " it is mean when closeRequest is fired so closeme method is should called \r\n"
-      )
+      _vm._v(" "),
+      _c("update", {
+        attrs: { openmodal: _vm.updateActive },
+        on: { closeRequest: _vm.closeme }
+      })
     ],
     1
   )
@@ -47009,7 +47027,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "modal-card" }, [
       _c("header", { staticClass: "modal-card-head  " }, [
-        _c("p", { staticClass: "modal-card-title" }, [_vm._v("Modal title")]),
+        _c("p", { staticClass: "modal-card-title" }, [
+          _vm._v(_vm._s(_vm.list.name) + " 's Details")
+        ]),
         _vm._v(" "),
         _c("button", {
           staticClass: "delete",
@@ -47075,6 +47095,282 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7c12c358", module.exports)
+  }
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(68)
+/* template */
+var __vue_template__ = __webpack_require__(69)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\update.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1d6c6260", Component.options)
+  } else {
+    hotAPI.reload("data-v-1d6c6260", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['openmodal'],
+  data: function data() {
+    return {
+      list: {}, //make list emphty
+      errors: {}
+    };
+  },
+
+  methods: {
+    close: function close() {
+      //fire event  and name that event closeRequest
+      this.$emit('closeRequest');
+    },
+    update: function update() {
+      var _this = this;
+
+      // to store  changes in phonebook after php artisan route:list we know that for store we need to do patch and pass id 
+      axios.patch('/phonebook/' + this.list.id, this.$data.list).then(function (response) {
+        return _this.close();
+      }).catch(function (error) {
+        return _this.errors = error.response.data.errors;
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal  ", class: _vm.openmodal }, [
+    _c("div", { staticClass: "modal-background" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-card" }, [
+      _c("header", { staticClass: "modal-card-head  " }, [
+        _c("p", { staticClass: "modal-card-title" }, [
+          _vm._v("Update " + _vm._s(_vm.list.name) + " 's Details")
+        ]),
+        _vm._v(" "),
+        _c("button", {
+          staticClass: "delete",
+          attrs: { "aria-label": "close" },
+          on: { click: _vm.close }
+        })
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "modal-card-body" }, [
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.name,
+                  expression: "list.name"
+                }
+              ],
+              staticClass: "input",
+              class: { "is-danger": _vm.errors.name },
+              attrs: { type: "text", placeholder: "Enter Name" },
+              domProps: { value: _vm.list.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.errors.name
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.name[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Phone")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.phone,
+                  expression: "list.phone"
+                }
+              ],
+              staticClass: "input",
+              class: { "is-danger": _vm.errors.phone },
+              attrs: { type: "Number", placeholder: "Enter Phone Number" },
+              domProps: { value: _vm.list.phone },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "phone", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.errors.phone
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.phone[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("E-mail")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.email,
+                  expression: "list.email"
+                }
+              ],
+              staticClass: "input",
+              class: { "is-danger": _vm.errors.email },
+              attrs: { type: "emit", placeholder: "Enter E-mail" },
+              domProps: { value: _vm.list.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "email", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.errors.email
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.email[0]))
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("footer", { staticClass: "modal-card-foot" }, [
+        _c(
+          "button",
+          { staticClass: "button is-link", on: { click: _vm.update } },
+          [_vm._v("Update ")]
+        ),
+        _vm._v(" "),
+        _c("button", { staticClass: "button", on: { click: _vm.close } }, [
+          _vm._v("Cancel")
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1d6c6260", module.exports)
   }
 }
 
