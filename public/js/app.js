@@ -46254,30 +46254,32 @@ var staticRenderFns = [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "content has-text-centered" }, [
           _c("p", [
-            _c("strong", [_vm._v("PhoneBook ")]),
-            _vm._v("  in Laravel & Vue.js by "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Omer Jan")]),
-            _vm._v(". The source code is licensed\n        "),
-            _c(
-              "a",
-              {
-                attrs: {
-                  href: "http://opensource.org/licenses/mit-license.php"
-                }
-              },
-              [_vm._v("MIT")]
-            ),
-            _vm._v(". The website content\n        is licensed "),
-            _c(
-              "a",
-              {
-                attrs: {
-                  href: "http://creativecommons.org/licenses/by-nc-sa/4.0/"
-                }
-              },
-              [_vm._v("CC BY NC SA 4.0")]
-            ),
-            _vm._v(".\n      ")
+            _c("strong", [
+              _c(
+                "a",
+                { attrs: { href: "https://github.com/omer-jan/phonebook" } },
+                [_vm._v("PhoneBook")]
+              )
+            ]),
+            _vm._v("  in "),
+            _c("a", { attrs: { href: "https://laravel.com/" } }, [
+              _vm._v("Laravel ")
+            ]),
+            _vm._v(" , "),
+            _c("a", { attrs: { href: "https://vuejs.org/" } }, [
+              _vm._v("Vue.js ")
+            ]),
+            _vm._v(" and "),
+            _c("a", { attrs: { href: "https://bulma.io/" } }, [
+              _vm._v("Bluma")
+            ]),
+            _vm._v(" Developed by : "),
+            _c("a", { attrs: { href: "https://github.com/omer-jan" } }, [
+              _vm._v("Mohammad Zubair ( Omer Jan )")
+            ]),
+            _vm._v(
+              ". The source code is free and available to every one \n        \n      "
+            )
           ])
         ])
       ])
@@ -46397,6 +46399,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 window.Vue = __webpack_require__(3);
 
@@ -46415,18 +46426,39 @@ var update = __webpack_require__(67);
       updateActive: '',
       lists: {}, // for list data
       errors: {}, // to show errors
-      loading: false
+      loading: false,
+      searchQuery: '',
+      templist: ''
     };
   },
+
+  watch: {
+    searchQuery: function searchQuery() {
+      var _this = this;
+
+      if (this.searchQuery.length > 0) {
+        this.templist = this.lists.filter(function (item) {
+          return Object.keys(item).some(function (key) {
+            var string = String(item[key]);
+            return string.toLowerCase().indexOf(_this.searchQuery.toLowerCase()) > -1;
+            // body...
+          });
+        });
+        //console.log(result);
+      } else {
+        this.templist = this.lists;
+      }
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
     then(function (response) {
-      return _this.lists = response.data;
+      return _this2.lists = _this2.templist = response.data;
     }) //to show fetched data in lists so we need to reate a list in data parts
     .catch(function (error) {
-      return _this.errors = error.response.data.errors;
+      return _this2.errors = error.response.data.errors;
     }); // show errors we need to create errors in data parts
   },
 
@@ -46435,36 +46467,36 @@ var update = __webpack_require__(67);
       this.addActive = "is-active";
     },
     openShow: function openShow(key) {
-      this.$children[1].list = this.lists[key]; // take the second compnent that is show and initialized its list component with the list that has key
+      this.$children[1].list = this.templist[key]; // take the second compnent that is show and initialized its list component with the list that has key
       this.showActive = "is-active";
     },
     openEdit: function openEdit(key) {
-      this.$children[2].list = this.lists[key]; // take the second compnent that is show and initialized its list component with the list that has key
+      this.$children[2].list = this.templist[key]; // take the second compnent that is show and initialized its list component with the list that has key
       this.updateActive = "is-active";
     },
     refereshdata: function refereshdata() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
       then(function (response) {
-        return _this2.lists = response.data;
+        return _this3.templist = response.data;
       }) //to show fetched data in lists so we need to reate a list in data parts
       .catch(function (error) {
-        return _this2.errors = error.response.data.errors;
+        return _this3.errors = error.response.data.errors;
       }); // show errors we need to create errors in data parts
     },
     del: function del(key, id) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (confirm("Are you sure?")) {
         this.loading = !this.loading;
 
         axios.delete('/phonebook/' + id). // we call getdata  method for that we need to create route web.php
         then(function (response) {
-          _this3.lists.splice(key, 1);_this3.loading = !_this3.loading;
+          _this4.templist.splice(key, 1);_this4.loading = !_this4.loading;
         }) //to show fetched data in lists so we need to reate a list in data parts
         .catch(function (error) {
-          return _this3.errors = error.response.data.errors;
+          return _this4.errors = error.response.data.errors;
         });
       }
     },
@@ -46737,7 +46769,7 @@ var render = function() {
         { staticClass: "panel column is-offset-2 is-8" },
         [
           _c("p", { staticClass: "panel-heading" }, [
-            _vm._v("\r\n    \r\n    View Js Phone Book\r\n   "),
+            _vm._v("\r\n    \r\n   Phone Book\r\n   "),
             _c("br"),
             _vm._v(" "),
             _c("br"),
@@ -46756,18 +46788,54 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "panel-block" }, [
+            _c("p", { staticClass: "control has-icons-left" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchQuery,
+                    expression: "searchQuery"
+                  }
+                ],
+                staticClass: "input is-small",
+                attrs: { type: "text", placeholder: "search" },
+                domProps: { value: _vm.searchQuery },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchQuery = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          ]),
           _vm._v(" "),
-          _vm._l(_vm.lists, function(item, key) {
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._l(_vm.templist, function(item, key) {
             return _c(
               "a",
               {
                 staticClass: "panel-block is-active",
-                staticStyle: { color: "red" }
+                staticStyle: { color: "black" }
               },
               [
-                _c("span", { staticClass: "column is-9" }, [
+                _c("span", { staticClass: "column is-3" }, [
                   _vm._v(_vm._s(item.name))
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "column is-2" }, [
+                  _vm._v(_vm._s(item.phone))
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "column is-4" }, [
+                  _vm._v(_vm._s(item.email))
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "column is-2   panel-icon" }, [
@@ -46833,20 +46901,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", {
+        staticClass: "fa fa-search fa-fw has-text-info",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-block" }, [
-      _c("p", { staticClass: "control has-icons-left" }, [
-        _c("input", {
-          staticClass: "input is-small",
-          attrs: { type: "text", placeholder: "search" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "icon is-small is-left" }, [
-          _c("i", {
-            staticClass: "fas fa-search",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
-      ])
+      _c("span", { staticClass: "column is-3" }, [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "column is-3" }, [_vm._v("Phone")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "column is-3" }, [_vm._v("E-mail")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "column is-3" }, [_vm._v("Action")])
     ])
   }
 ]
@@ -46923,12 +46996,68 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "section" }, [
       _c("div", { staticClass: "container" }, [
-        _c("h1", { staticClass: "title" }, [_vm._v("Section")]),
+        _c("h1", { staticClass: "title" }, [_vm._v("About this Project")]),
         _vm._v(" "),
         _c("h2", { staticClass: "subtitle" }, [
-          _vm._v("\n      A simple container to divide your page into "),
-          _c("strong", [_vm._v("sections")]),
-          _vm._v(", like the one you're currently reading\n    ")
+          _c("img", {
+            attrs: {
+              src: "/phonebook/homepage.JPG",
+              alt: "homepage",
+              height: "42",
+              width: "42"
+            }
+          }),
+          _vm._v(
+            "\n    this is simple phonebook project is  developed by Mohammad Zubair (omer jan) Software Developer using the following frameworks:"
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("strong", [
+            _c("a", { attrs: { href: "https://laravel.com/" } }, [
+              _vm._v("Laravel :")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Laravel is a free, open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern. for more details about laravel "
+            ),
+            _c("a", { attrs: { href: "https://laravel.com/" } }, [
+              _vm._v("click here")
+            ]),
+            _vm._v(".")
+          ]),
+          _vm._v(" "),
+          _c("strong", [
+            _c("a", { attrs: { href: "https://vuejs.org/" } }, [
+              _vm._v("Vue.js : ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Vue.js is an open-source JavaScript framework for building user interfaces. it is used for client side  processing. for more details about Vue.js "
+            ),
+            _c("a", { attrs: { href: "https://vuejs.org/" } }, [
+              _vm._v("click me")
+            ]),
+            _vm._v(".")
+          ]),
+          _vm._v(" "),
+          _c("strong", [
+            _c("a", { attrs: { href: "https://bulma.io/" } }, [
+              _vm._v("Bluma :")
+            ])
+          ]),
+          _c("p", [
+            _vm._v(
+              "Bulma is an open source CSS framework based on Flexbox and built with Sass. It's 100% responsive, fully modular, and available for free. for more details about Bluma "
+            ),
+            _c("a", { attrs: { href: "https://bulma.io/" } }, [
+              _vm._v("click here")
+            ]),
+            _vm._v(".")
+          ])
         ])
       ])
     ])

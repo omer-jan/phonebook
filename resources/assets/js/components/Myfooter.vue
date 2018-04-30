@@ -3,9 +3,8 @@
   <div class="container">
     <div class="content has-text-centered">
       <p>
-        <strong>PhoneBook </strong>  in Laravel & Vue.js by <a href="#">Omer Jan</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+        <strong><a href="https://github.com/omer-jan/phonebook">PhoneBook</a> </strong>  in <a href="https://laravel.com/">Laravel </a> , <a href="https://vuejs.org/">Vue.js </a> and <a href="https://bulma.io/">Bluma</a> Developed by : <a href="https://github.com/omer-jan">Mohammad Zubair ( Omer Jan )</a>. The source code is free and available to every one 
+        
       </p>
     </div>
   </div>
