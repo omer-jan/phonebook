@@ -46469,18 +46469,13 @@ var update = __webpack_require__(67);
       }
     },
     closeme: function closeme() {
-      var _this4 = this;
-
       this.addActive = '';
       this.showActive = '';
       this.updateActive = '';
-      axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
-      then(function (response) {
-        return _this4.lists = response.data;
-      }) //to show fetched data in lists so we need to reate a list in data parts
-      .catch(function (error) {
-        return _this4.errors = error.response.data.errors;
-      });
+      //       axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
+      //    then((response)=>this.lists=response.data)//to show fetched data in lists so we need to reate a list in data parts
+      // .catch((error)=>this.errors=error.response.data.errors) 
+
     }
   }
 });
@@ -46554,7 +46549,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       axios.post('/phonebook', this.$data.list).then(function (response) {
-        return _this.close();
+        _this.close();
+        _this.$parent.lists.push(response.data);
+        _this.$parent.lists.sort(function (a, b) {
+          if (a.name < b.name) {
+            return -1;
+          } else if (a.name > b.name) {
+            return +1;
+          }
+        });
+        _this.list = "";
       }).catch(function (error) {
         return _this.errors = error.response.data.errors;
       });

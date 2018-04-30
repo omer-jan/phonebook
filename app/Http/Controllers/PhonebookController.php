@@ -15,7 +15,8 @@ class PhonebookController extends Controller
      */
     public function index()
     {
-       return view ('phonebook');
+       return view ('phonebook'); 
+        //getdate();
     }
      public function getdata()
     {
@@ -45,6 +46,7 @@ class PhonebookController extends Controller
          $ph->phone=$request->phone;
          $ph->email=$request->email;
          $ph->save();
+         return $ph;
     }
 
     /**

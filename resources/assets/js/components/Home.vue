@@ -112,9 +112,9 @@
             this.addActive='';
           this.showActive='';
           this.updateActive='';
-            axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
-         then((response)=>this.lists=response.data)//to show fetched data in lists so we need to reate a list in data parts
-      .catch((error)=>this.errors=error.response.data.errors) 
+      //       axios.post('/getdata'). // we call getdata  method for that we need to create route web.php
+      //    then((response)=>this.lists=response.data)//to show fetched data in lists so we need to reate a list in data parts
+      // .catch((error)=>this.errors=error.response.data.errors) 
          
            
         }
